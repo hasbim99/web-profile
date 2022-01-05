@@ -1,0 +1,147 @@
+<html>
+<head>
+	<title>Linux</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<div class="wrap">
+	<!-- bagian header template -->
+	<header>
+	</header>
+	<!-- akhir bagian header template -->
+	
+		<!-- bagian menu		 -->
+		<nav class="menu">
+			<ul>
+				<li>
+					<a href="index.html">Home</a>
+				</li>
+				<li>
+					<a href="cv.html">CV</a>
+				</li>
+				<li>
+					<a href="kontak.html">Kontak</a>
+				</li>
+				<li>
+					<a href="portofolio.html">Portofolio</a>
+				</li>
+			</ul>
+		</nav>
+		<!-- akhir bagian menu -->
+ 
+		<!-- bagian sidebar website -->
+		<aside class="sidebar">
+			<div class="widget">
+				<h2>Kontak</h2>
+				<p>Untuk mengetahui informasi-informasi lainnya dapat menghubungi kontak atau sosial media yang ada.</p>
+				<a href="kontak.html" class="next">Selengkapnya ?</a>
+			</div>
+			<div class="widget">
+				<h2>Short Movie</h2>
+				<p>Short Movie, tentang dampak dari kemajuan teknologi terhadap kehidupan, <br> By : TKJB'15 SMK Informatika Bandung</p>
+				<a target="_blank" href="https://www.youtube.com/watch?v=2LA8SELuAMg" class="next"> Mau Lihat?</a>
+			</div>
+			<div class="widget">
+				<h2>Video</h2>
+				<p>Video Catatan akhir sekolah, <br> By : SMK Informatika Bandung 2015</p>
+				<a target="_blank" href="https://www.youtube.com/watch?v=XI6PazpyCnk" class="next"> Mau Lihat?</a>
+			</div>
+		</aside>
+		<!-- akhir bagian sidebar website -->
+ 
+		<!-- bagian konten Blog -->
+		<div class="blog">
+			<div class="conteudo">
+				<div class="post-info">
+					<b>Linux</b>
+				</div>
+				<img src="img/DebianLinux.jpg" width="650px">
+				<h1>Linux Debian 5</h1>
+				<hr>
+				<p>
+				Debian adalah sistem operasi bebas yang dikembangkan secara terbuka oleh banyak programer 
+				sukarela(pengembang Debian) yang tergabung dalam Proyek Debian. Sistem operasi Debian adalah 
+				gabungan dari perangkat lunak yang dikembangkan dengan lisensi GNU, dan utamanya menggunakan 
+				kernel Linux, sehingga populer dengan nama Debian GNU/Linux. Sistem operasi Debian yang menggunakan 
+				kernel Linux merupakan salah satu distro Linux yang populer dengan kestabilannya. 
+				Dengan memperhitungkan distro berbasis Debian, seperti Ubuntu, Xubuntu, Knoppix, Mint, dan sebagainya, 
+				maka Debian merupakan distro Linux yang paling banyak digunakan di dunia. <br><br>
+				Debian 5 adalah system operasi linux yang dapat dijadikan sebagai server. Dan yang akan di konfigurasi, 
+				DHCP Server, DNS Server, Web Server, Proxy Server. Sebelumnya kita harus mengkonfigurasi 
+				IP Address server terlebih dahulu. 
+				<br><br>
+				1. Network Interfaces
+				<ul>
+				<li>Pertama, untuk mengatur IP Address tuliskan perintah, nano /etc/network/interfaces
+				<li>lalu tulis address, netmask, network dan broadcast, seperti pada gambar berikut , lalu tekan CTRL + X lalu Y untuk menyimpan konfigurasi.
+				<li>Setelah itu restart interface nya dengan perintah, /etc/init.d/networking restart
+				</ul>
+				2. DHCP Server
+				<ul>
+				<li>Instal DHCP Server dengan perintah, apt-get install dhcp3-server
+				<li>Lalu, edit DHCP dengan perintah, nano /etc/dhcp3/dhcpd.conf 
+				<li>lalu hapus tanda pagar yang ada pada tulisan subnet sampai max-lease-time, ubah subnet, netmask, range, option route, option broadcast-address, seperti pada gambar berikut:
+				<li>Setelah itu, restart DHCP Server dengan perintah,  /etc/init.d/dhcp3-server restart
+				<li>Setelah konfigurasi DHCP Server selesai. Untuk melihat berhasil atau tidaknya DHCP Server  cek pada komputer client apakah IP Address client sudah sama dengan IP Address yang telah di setting pada komputer server.
+				</ul>
+				3. DNS Server
+				<ul>
+				<li>Install DNS nya dengan perintah, apt-get install bin9
+				<li>Lalu edit file named.config dengan perintah, nano /etc/bind/named.conf 
+				<li>Ganti tulisan localhost menjadi nama domain seperti hasbi.net, db.local menjadi db.hasbi, dan 127 menjadi 192, lalu simpan.        
+				<li>Lalu copy file db.local ke db.hasbi
+				<li>Lalu copy file db.127 ke db.192
+				<li>Edit file db.hasbi, dengan perintah, nano /var/cache/bind/db.hasbi 
+				<li>Lalu ganti tulisan localhost menjadi hasbi.net
+				<li>Edit file db.192 dengan perintah, nano /var/cache/bind/db.192 
+				<li>Lalu edit file resolv, dengan perintah nano /etc/resolv.conf
+				<li>Lalu tulis, search hasbi.net dan nameserver 192.168.1.1
+				<li>Lalu restart bind9 nya, dengan perintah /etc/init.d/bind9 restart
+				<li>Lalu cek dengan perintah nslookup 192.168.1.1 
+				<li>Lalu cek dengan perintah nslookup hasbi.net
+				</ul>
+				4. Web Server
+				<ul>
+				<li>Pertama install apache2 nya, dengan perintah apt-get install apache2
+				<li>Edit apache2 nya, dengan perintah nano /etc/apache2/apache2.conf
+				 <li>Setelah itu, akan muncul tampilan berikut, tambahkan ServerName hasbi.net, lalu simpan.
+				 <li>Lalu edit site dengan perintah nano /etc/apache2/sites-available/default
+				 <li>Akan muncul tampilan seperti ini, lalu tambahkan admin@hasbi.net 
+				 <li>Lalu edit tampilan website nya, dengan perintah nano /var/www/index.html
+				 <li>Akan muncul tampilan berikut, edit sesuai dengan keinginan.
+				 <li>Setelah itu restart apache2 nya, dengan perintah /etc/init.d/apache2 restart
+				 <li>Lalu cek di client apakah berhasil atau tidak, dengan menulis di browser nama domain hasbi.net atau IP Address server 192.168.1.1
+				</ul>
+				5. Proxy Server
+				<ul>
+				<li>Install squid, dengan perintah apt-get install squid
+				<li>Lalu edit squid dengan perintah, nano /etc/squid/squid.conf
+				 <li>lalu cari kata-kata, dengan menekan CTRL + W , cache_mem, lalu ganti menjadi cache_mem 64 MB
+				<li>lalu cari kata-kata, cache_mgr tambahkan email contoh, hasbi99@gmail.com
+				<li>cari kata-kata visible_hostname tambahkan hasbi.proxy.info.net 
+				<li>cari http_port 3128, lalu tambahkan transparent.
+				 <li>Cari kata-kata acl CONNECT
+				 <li>Cari http_access deny all, lalu tambahkan tanda pagar 
+				 <li>Setelah semuanya di edit atau di tambahkan simpan dengan menekan CTRL+X lalu tekan Y.
+				<li>Setelah itu tambahkan url atau link yang akan di block, dengan perintah nano /etc/squid/url
+				<li>Akan muncul tampilan berikut, lalu tambahkan url atau link yang akan di block
+				 <li>Setelah itu tambahkan key atau kata kunci atau link yang akan di block, dengan perintah nano /etc/squid/key
+				<li>Akan muncul tampilan berikut, lalu tambahkan key atau kata-kata yang akan di block
+				 <li>Setelah semua konfigurasi selesai restari squid nya, dengan perintah /etc/init.d/squid restart
+				 <li>Setelah itu cek di client apakah berhasil atau tidak dengan cara buka browser contohnya Mozilla firefox, atur dulu proxy pada browser nya klik option – advanced –network – setting, lalu pilih Manual proxy configuration, lalu isikan IP Address server 192.168.1.1 dan isi port 3128, klik OK
+				</ul>
+				<br><br>
+				Konfigurasi Selesai...
+				</p>				
+				<!-- a href="#" class="continue-lendo">Selengkapnya ?</a -->
+			</div>
+		</div>
+		<!-- akhir bagian konten Blog -->
+		<footer>
+		<br><i><center>COPYRIGHT © 2017. ALL RIGHT RESERVED</i><br>
+		<i>Created by : Hasbi Muhammad - hasbim99@gmail.com</i>
+		</footer>
+	</div>
+ 
+</body>
+</html>
