@@ -1,2 +1,2 @@
 # web-profile
-Website Profile
+Website Profile sederhana dengan menggunakan HTML dan CSS
